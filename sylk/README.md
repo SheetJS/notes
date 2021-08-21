@@ -40,10 +40,31 @@ For example. `"\x1B :" == "\x1B\x20\x3A` encodes the byte `"\x0A"` (newline)
 Excel also understands a set of special escapes that start with `\x1BN`.  For
 clarity, the `\x1BN` part is not included in the table:
 
-| sequence | text |
-|:---------|:-----|
-| `AA`     | `À`  |
+|    |  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |  A |  B |  C |  D |  E |  F |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+|`0_`|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+|`1_`|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+|`2_`|    |    | `*`| `&`|    |    |    | `)`|    |    |    |    |    | `P`|    |    |
+|`3_`|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+|`4_`|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+|`5_`|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+|`6_`|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+|`7_`|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
+|`8_`|    |    |    |    |    |    |    |    |    |    |    |    | `j`|    |    |    |
+|`9_`|    |    |    |    |    |    |    |    |    |    |    |    | `z`|    |    |    |
+|`A_`|    | `!`| `"`| `#`| `(`| `%`|    | `'`|`H `| `S`| `c`| `+`|    |    | `R`|    |
+|`B_`|`J `| `1`| `2`| `3`|`B `| `5`| `6`| `7`|    | `Q`| `k`| `;`| `<`| `=`| `>`| `?`|
+|`C_`|`AA`|`BA`|`CA`|`DA`|`HA`|`JA`| `a`|`KC`|`AE`|`BE`|`CE`|`HE`|`AI`|`BI`|`CI`|`HI`|
+|`D_`| `b`|`DN`|`AO`|`BO`|`CO`|`DO`|`HO`|    | `i`|`AU`|`BU`|`CU`|`HU`|    | `l`| `{`|
+|`E_`|`Aa`|`Ba`|`Ca`|`Da`|`Ha`|`Ja`| `q`|`Kc`|`Ae`|`Be`|`Ce`|`He`|`Ai`|`Bi`|`Ci`|`Hi`|
+|`F_`| `s`|`Dn`|`Ao`|`Bo`|`Co`|`Do`|`Ho`|    | `y`|`Au`|`Bu`|`Cu`|`Hu`|    | `|`|`Hy`|
 
+For example, `\x1BNj` encodes byte `0x8C`
+
+- Both `\x1BN0` and `\x1BNJ ` appear to encode `0xB0`
+- Both `\x1BN9` and `\x1BN)` appear to encode `0x27`
+- Bytes `0xA8`, `0xB0` and `0xB4` have space characters (` `) after the letter.
+  Byte `0xA8` is encoded as `\x1BNH\x20`
 
 ## Record Types
 

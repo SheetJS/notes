@@ -66,6 +66,7 @@ For example, `\x1BNj` encodes byte `0x8C`
 - Bytes `0xA8`, `0xB0` and `0xB4` have space characters (` `) after the letter.
   Byte `0xA8` is encoded as `\x1BNH\x20`
 
+
 ## Record Types
 
 | Record Type | Description          |

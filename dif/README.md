@@ -26,6 +26,24 @@ It does not correctly handle `"` characters in strings.  Writers should use `""`
 """"
 ```
 
+### Excel Number stored as Text inconsistency
+
+Even if a data point is marked as text, Excel will try to interpret as Number.
+For example, the following DIF snippet should represent the text `"0.3"`:
+
+
+```dif
+1,0
+"0.3"
+```
+
+Excel ignores the type and interprets the cell as the number `0.3`.  To force a
+textual interpretation, the formula trick (same as CSV) works:
+
+```dif
+1,0
+"=""0.3"""
+```
 
 
 [![Analytics](https://ga-beacon.appspot.com/UA-36810333-1/SheetJS/notes?pixel)](https://github.com/SheetJS/notes)

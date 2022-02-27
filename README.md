@@ -7,6 +7,7 @@ Various spreadsheet file format notes.
 - [XLSB Short Records](/xlsb_short_records/README.md)
 - [Number Formats](/ssf/README.md)
 - [SpreadsheetML2003](/xlml/README.md)
+- [LibreOffice Bugs](/lobugs/README.md)
 
 Project sponsored by [SheetJS](https://sheetjs.com)
 

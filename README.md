@@ -3,6 +3,7 @@
 Various spreadsheet file format notes.
 
 - [Data Interchange Format (DIF)](/dif/README.md)
+- [Lotus WK# formats](/lotus/README.md)
 - [Symbolic Link (SLK/SYLK)](/sylk/README.md)
 - [XLSB Short Records](/xlsb_short_records/README.md)
 - [Number Formats](/ssf/README.md)

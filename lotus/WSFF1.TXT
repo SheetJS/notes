@@ -1,0 +1,338 @@
+                            WORKSHEET FILE FORMAT 
+                                  FROM LOTUS 
+
+                       INTRODUCTION AND QUICK REFERENCE
+
+               Copyright(c) 1984, Lotus Development Corporation 
+                               161 First Street 
+                        Cambridge, Massachusetts 02142 
+                                (617) 492-7171 
+                      Electronic Edition, December, 1984 
+                             All Rights Reserved 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ PREFACE 
+
+ Lotus Development Corporation's 1-2-3(TM) and Symphony(TM) perform user
+ selected operations upon a data matrix that is termed a "worksheet". 
+
+ Worksheet files are such matrices stored on disk. 
+
+ A worksheet file is an unbroken sequence of binary coded records defining a
+ single worksheet. 
+
+ Both 1-2-3 and Symphony accept externally created data files if the files
+ are in the worksheet file format.  Other programs can decode and process
+ worksheet files created by 1-2-3 or Symphony. 
+
+ The following document provides information required to create or access a
+ worksheet file by describing the records used to create a worksheet file.
+ It is assumed that the reader is familiar with Lotus products and has ready
+ access to 1-2-3 or Symphony documentation. 
+
+ Note that the worksheet files for 1-2-3 and Symphony are similar, but not
+ necessarily interchangeable.  1-2-3 and Symphony share some record types,
+ but also have record types unique to that product.  Symphony can read 1-2-3
+ records, but 1-2-3 cannot read Symphony records. 
+
+ The information contained in this document has been released into the
+ public domain and is not considered to be confidential or proprietary
+ although still the copyright and property of Lotus Development Corporation.
+ All efforts have been made to ensure that this information is clear and
+ useful since Lotus will not be providing customer assistance with this
+ booklet.  Lotus will, however, incorporate any necessary corrections if
+ they are reported in writing to: 
+
+                        Lotus Development Corporation 
+                        Worksheet File Format 
+                        161 First Street 
+                        Cambridge, MA 02142 
+
+
+ WORKSHEET FILE FORMAT 
+
+ Worksheet files are organized as an unbroken sequence of variable length
+ binary records.  Each record consists of a 4-byte header followed by the
+ record body. The header defines the record's type and length, as the
+ example below shows.
+  
+ The header's composition is as follows: 
+
+
+
+ Byte Number               Byte Description 
+ 0,1                       Record type code 
+ 2,3                       Record body length (bytes) 
+
+
+ Example: Record Header 
+
+                               Record Header 
+
+                           Record         Record 
+                            Type          Length 
+
+          Byte Number      0    1         2    3 
+             Hex Code     1C   00        20   00 
+   Decimal Equivalent       28             32 
+
+
+ The record body can be of many different types; most have predetermined
+ length, but some vary in length. 
+
+ The record type code is 28. 
+
+ In a hex dump of the file, the record type appears as 1C 00h, noting that
+ the 8086/88 stores the most significant byte of word in the higher memory
+ address. 
+
+ The record length is 32 bytes. 
+ In a hex dump of the file, the record length appears as 20 00h. 
+
+
+ Record types with Column/Row Coordinates 
+
+ Some record types contain column/row coordinates to identify a cell, or one
+ of the two points that define a range.  Numbering starts at zero in the
+ upper left corner of the worksheet. 
+ For example: 
+
+                             Cell A1 = column 0, row 0 
+
+
+
+
+
+ SUMMARY OF RECORD TYPES 
+
+ This section describes the different record types found in 1-2-3 and
+ Symphony. 
+
+ There are to Quick Reference tables ordered by Opcode and by Product,
+ followed by a detailed reference section ordered by Opcode.  In the
+ reference section, there are examples for the more commonly used records. 
+
+ It is assumed that the reader is familiar with 1-2-3 or Symphony and has
+ access to Lotus' documentation. 
+
+ Quick Reference by Opcode 
+
+ Type       Code (hex)        Length (bytes)         Description 
+
+ BOF            0                2                   Beginning of file 
+ EOF            1                0                   End of file 
+ CALCMODE       2                1                   Calculation mode 
+ CALCORDER      3                1                   Calculation order 
+ SPLIT          4                1                   Split window type 
+ SYNC           5                1                   Split window sync 
+ RANGE          6                8                   Active worksheet range 
+ WINDOW1        7                31                  Window 1 record 
+ COLW1          8                3                   Column width, 
+                                                       window 1 
+ WINTWO         9                31                  Window 2 record 
+ COLW2          A                3                   Column width, 
+                                                       window 2 
+ NAME           B                24                  Named range 
+ BLANK          C                5                   Blank cell 
+ INTEGER        D                7                   Integer number cell 
+ NUMBER         E                13                  Floating point number 
+ LABEL          F                variable            Label cell 
+ FORMULA        10               variable            Formula cell 
+ TABLE          18               25                  Data table range 
+ ORANGE         19               25                  Query range 
+ PRANGE         1A               8                   Print range 
+ SRANGE         1B               8                   Sort range 
+ FRANGE         1C               8                   Fill range 
+ KRANGE1        1D               9                   Primary sort key range 
+ HRANGE         20               16                  Distribution range 
+ KRANGE2        23               9                   Secondary sort key 
+                                                       range 
+ PROTEC         24               1                   Global protection 
+ FOOTER         25               242                 Print footer 
+ HEADER         26               242                 Print header 
+ SETUP          27               40                  Print setup 
+ MARGINS        28               10                  Print margins code 
+
+
+
+ Quick Reference by Opcode (continued) 
+
+ Type         code (hex)       Length (bytes)        Description 
+
+ LABELFMT        29                  1               Label alignment 
+ TITLES          2A                  16              Print borders 
+ GRAPH           2D                  437             Current graph settings 
+ NGRAPH          2E                  453             Named graph settings 
+ CALCCOUNT       2F                  1               Iteration count 
+ UNFORMATTED     30                  1               Formatted/unformatted 
+                                                       print 
+ CURSORW12       31                  1               Cursor location 
+ WINDOW          32                  144             Symphony window 
+                                                       settings 
+ STRING          33                  variable        Value of string  
+                                                       formula 
+ PASSWORD        37                  4               File lockout (CHKSUM) 
+ LOCKED          38                  1               Lock flag 
+ QUERY           3C                  127             Symphony query 
+                                                       settings 
+ QUERYNAME       3D                  16              Query name 
+ PRINT           3E                  679             Symphony print record 
+ PRINTNAME       3F                  16              Print record name 
+ GRAPH2          40                  499             Symphony graph 
+                                                       record 
+ GRAPHNAME       41                  16              Graph record name 
+ ZOOM            42                  9               Orig coordinates 
+                                                       expanded window 
+ SYMSPLIT        43                  2               Nos. of split windows 
+ NSROWS          44                  2               Nos. of screen rows 
+ NSCOLS          45                  2               Nos. of screen columns 
+ RULER           46                  25              Named ruler range 
+ NNAME           47                  25              Named sheet range 
+ ACOMM           48                  65              Autoload.comm code 
+ AMACRO          49                  8               Autoexecute macro 
+                                                       address 
+ PARSE           4A                  16              Query parse 
+                                                       information 
+
+
+
+
+ Quick Reference by Product: 1-2-3 only 
+
+ Type          Code (hex)         Length (bytes)     Description 
+
+ SPLIT            4                    1             Split window type 
+ SYNC             5                    1             Split window sync 
+ WINDOW 1         7                    31            Window 1 record 
+ WINTWO           9                    31            Window 2 record 
+ COLW2            A                    3             Column width,  
+                                                       window 2 
+ NAME             B                    24            Named range 
+ QRANGE           19                   25            Query range 
+ PRANGE           1A                   8             Print range 
+ SRANGE           1B                   8             Sort range 
+ KRANGE1          1D                   9             Primary sort key range 
+ KRANGE2          23                   9             Secondary sort key 
+                                                       range 
+ FOOTER           25                   242           Print footer 
+ HEADER           26                   242           Print header 
+ SETUP            27                   40            Print setup 
+ MARGINS          28                   10            Print margins code 
+ TITLES           2A                   16            Print borders 
+ GRAPH            2D                   437           Current graph settings 
+ NGRAPH           2E                   453           Named graph settings 
+
+
+
+
+ Quick Reference by Product: 1-2-3 and Symphony 
+
+ Type          Code (hex)         Length (bytes)     Description 
+
+ BOF               0                   2             Beginning of file 
+ EOF               1                   0             End of file 
+ CALCMODE          2                   1             Calculation mode 
+ CALCORDER         3                   1             Calculation order 
+ RANGE             6                   8             Active worksheet range 
+ COLW1             8                   3             Column width 
+ BLANK             C                   5             Blank cell 
+ INTEGER           D                   7             Integer number cell 
+ NUMBER            E                   13            Floating point number 
+ LABEL             F                   variable      Label cell 
+ FORMULA           10                  variable      Formula cell 
+ TABLE             18                  25            Data table range 
+ FRANGE            1C                  8             Fill range 
+ HRANGE            20                  16            Distribution range 
+ PROTEC            24                  1             Global protection 
+ LABELFMT          29                  1             Label alignment 
+ CALCCOUNT         2F                  1             Iteration count 
+ UNFORMATTED       30                  1             Formatted/unformatted 
+                                                       print 
+ CURSORW12         31                  1             Cursor location 
+
+
+
+
+ Quick Reference by Product: Symphony only 
+
+ Type          Code (hex)        Length (bytes)      Description 
+
+ WINDOW           32                 144             Symphony window 
+                                                       settings 
+ STRING           33                 variable        Value of string 
+                                                       formula 
+ PASSWORD         37                 4               File lockout (CHKSUM) 
+ LOCKED           38                 1               Lock flag 
+ QUERY            3C                 127             Symphony query 
+                                                       settings 
+ QUERYNAME        3D                 16              Query name 
+ PRINT            3E                 679             Symphony print record 
+ PRINTNAME        3F                 16              Print record name 
+ GRAPH2           40                 499             Symphony graph 
+                                                       record 
+ GRAPHNAME        41                 16              Graph rocord name 
+ ZOOM             42                 9               Orig coordinates 
+                                                       expanded window 
+ SYMSPLIT         43                 2               Nos. of split windows 
+ NSROWS           44                 2               Nos. of screen rows 
+ NSCOLS           45                 2               Nos. of screen columns 
+ RULER            46                 25              Named ruler range 
+ NNAME            47                 25              Named sheet range 
+ ACOMM            48                 65              Autoload. comm code 
+ AMACRO           49                 8               Autoexecute macro 
+                                                       address  
+ PARSE            4A                 16              Query parse 
+                                                       information 

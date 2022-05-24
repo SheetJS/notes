@@ -19,7 +19,7 @@ a 4-byte header consisting of a `0` byte followed by the compressed length
 (stored as a 3-byte little-endian integer)
 
 Each block follows the Snappy compressed format as described in
-<https://github.com/google/snappy/blob/main/format_description.txt> .  iWork
+[the format description from the snappy repo](./snappy_format.txt).  iWork
 apps do not expect a particular compression level, and it is possible to create
 the equivalent of a "STORED" block.
 

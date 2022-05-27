@@ -10,6 +10,7 @@ Various spreadsheet file format notes.
 - [SpreadsheetML2003](/xlml/README.md)
 - [LibreOffice Bugs](/lobugs/README.md)
 - [Numbers 3+ (iWork 2013+)](/iwa/README.md)
+- [Formula Localization](/fmla/README.md)
 
 Project sponsored by [SheetJS](https://sheetjs.com)
 

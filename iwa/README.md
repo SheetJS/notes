@@ -272,10 +272,9 @@ a field that does not appear in Numbers.
 ### MD5 Checksums
 
 - [11.1](./111.md)
-
 - [11.2](./112.md)
-
 - [12.0](./120.md)
+- [12.1](./121.md)
 
 
 [![Analytics](https://ga-beacon.appspot.com/UA-36810333-1/SheetJS/notes?pixel)](https://github.com/SheetJS/notes)
